@@ -10,6 +10,6 @@ router.get('/consultations', Controller.GetConsultations);
 
 router.post('/consultations', Controller.PostConsultations);
 
-router.get('/avaliability', Controller.GetAvaliableIntervals);
+router.get('/availability', Controller.GetAvaliableIntervals);
 
 module.exports = router

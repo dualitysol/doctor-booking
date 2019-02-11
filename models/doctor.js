@@ -6,8 +6,7 @@ const DoctorSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    unique: false,
-    index: false
+    unique: true,
   },
   times:[
     {
@@ -15,27 +14,6 @@ const DoctorSchema = new mongoose.Schema({
       end: String
     }
   ]
-});
-
-DoctorSchema.pre('save', function saveHook(next) {
-  const doctor = this;
-
-  if (!doctor.isModified('times')) return next();
-
-  if (!Array.isArray(doctor.times)) doctor.tims = [];
-
-  if (doctor.times.lenght < 7) {
-    for (let i = 0; i < 7 - doctor.times.lenght; i++) {
-      doctor.times.push(null);
-    }
-  }
-
-  try {
-    ValidateTimesArray(doctor.times);
-    return next();
-  } catch (e) {
-    return next(e);
-  }
 });
 
 module.exports = mongoose.model('Doctor', DoctorSchema);

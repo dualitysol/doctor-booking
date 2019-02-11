@@ -36,17 +36,16 @@ ConsultationSchema.statics.findByIterval = function (from, to, cb) {
   }, cb)
 };
 
-ConsultationSchema.pre('save', async function saveHook(next) {
-  try {
-    const doctor = await Doctor.findOne({ _id: this.doctorId }).exec();
-    ValidateTimeAvaliability(this.times, doctor);
+// for (let index = 0; index < consultations.length; index++) {
+//   const consultation = consultations[index];
+//   let begin = new Date(consultation.begin);
+//   let end = new Date(consultation.end);
+//   const doctor = await Doctor.findOne({ _id: consultation.doctorId }).exec();
+//   TimeManager.ValidateTimeAvaliability(begin.toString(), end.toString(), doctor);
 
-    const room = await Room.findOne({ _id: this.roomId }).exec();
-    ValidateTimeAvaliability(this.times, room);
-    return next();
-  } catch (e) {
-    return next(e);
-  }
-});
+//   const room = await Room.findOne({ _id: consultation.roomId }).exec();
+//   TimeManager.ValidateTimeAvaliability(begin.toString(), end.toString(), room);
+  
+// };
 
 module.exports = mongoose.model('Consultation', ConsultationSchema);
